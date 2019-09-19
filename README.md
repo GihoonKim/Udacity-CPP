@@ -11,7 +11,7 @@
 
 
 ### OpenStreetMap Route Planner
- - using real map data and A* algorithm, find a path between user-defined two points.
+ - Using real map data and A* algorithm, find a path between user-defined two points.
  - Learn about the basic method of C++
 
 ### System Monitor
