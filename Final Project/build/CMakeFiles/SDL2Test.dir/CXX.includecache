@@ -1,0 +1,134 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/gihoon/work/C++/Final Project/src/character.cpp
+character.h
+/home/gihoon/work/C++/Final Project/src/character.h
+iostream
+-
+math.h
+/home/gihoon/work/C++/Final Project/src/math.h
+
+/home/gihoon/work/C++/Final Project/src/character.h
+map.h
+/home/gihoon/work/C++/Final Project/src/map.h
+tuple
+-
+
+/home/gihoon/work/C++/Final Project/src/controller.cpp
+controller.h
+/home/gihoon/work/C++/Final Project/src/controller.h
+
+/home/gihoon/work/C++/Final Project/src/controller.h
+pacman.h
+/home/gihoon/work/C++/Final Project/src/pacman.h
+
+/home/gihoon/work/C++/Final Project/src/enemy.cpp
+enemy.h
+/home/gihoon/work/C++/Final Project/src/enemy.h
+iostream
+-
+
+/home/gihoon/work/C++/Final Project/src/enemy.h
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+character.h
+/home/gihoon/work/C++/Final Project/src/character.h
+
+/home/gihoon/work/C++/Final Project/src/game.cpp
+game.h
+/home/gihoon/work/C++/Final Project/src/game.h
+iostream
+-
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+
+/home/gihoon/work/C++/Final Project/src/game.h
+random
+-
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+controller.h
+/home/gihoon/work/C++/Final Project/src/controller.h
+renderer.h
+/home/gihoon/work/C++/Final Project/src/renderer.h
+pacman.h
+/home/gihoon/work/C++/Final Project/src/pacman.h
+enemy.h
+/home/gihoon/work/C++/Final Project/src/enemy.h
+map.h
+/home/gihoon/work/C++/Final Project/src/map.h
+
+/home/gihoon/work/C++/Final Project/src/main.cpp
+renderer.h
+/home/gihoon/work/C++/Final Project/src/renderer.h
+game.h
+/home/gihoon/work/C++/Final Project/src/game.h
+controller.h
+/home/gihoon/work/C++/Final Project/src/controller.h
+iostream
+-
+
+/home/gihoon/work/C++/Final Project/src/map.cpp
+iostream
+-
+thread
+-
+mutex
+-
+map.h
+/home/gihoon/work/C++/Final Project/src/map.h
+
+/home/gihoon/work/C++/Final Project/src/map.h
+vector
+-
+mutex
+-
+thread
+-
+
+/home/gihoon/work/C++/Final Project/src/pacman.cpp
+pacman.h
+/home/gihoon/work/C++/Final Project/src/pacman.h
+iostream
+-
+
+/home/gihoon/work/C++/Final Project/src/pacman.h
+vector
+-
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+character.h
+/home/gihoon/work/C++/Final Project/src/character.h
+
+/home/gihoon/work/C++/Final Project/src/renderer.cpp
+renderer.h
+/home/gihoon/work/C++/Final Project/src/renderer.h
+iostream
+-
+string
+-
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+pacman.h
+/home/gihoon/work/C++/Final Project/src/pacman.h
+enemy.h
+/home/gihoon/work/C++/Final Project/src/enemy.h
+
+/home/gihoon/work/C++/Final Project/src/renderer.h
+vector
+-
+SDL2/SDL.h
+/home/gihoon/work/C++/Final Project/src/SDL2/SDL.h
+map.h
+/home/gihoon/work/C++/Final Project/src/map.h
+pacman.h
+/home/gihoon/work/C++/Final Project/src/pacman.h
+enemy.h
+/home/gihoon/work/C++/Final Project/src/enemy.h
+
