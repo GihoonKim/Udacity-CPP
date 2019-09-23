@@ -112,7 +112,23 @@ void Renderer::Render(std::vector<std::vector<GridPhase>> const &current_map, st
 
 	std::tie(pac_x, pac_y) = pacman->Get_pose();
 	// SDL_SetRenderDrawColor(sdl_renderer, 0, 100, 0, 100);
-	img = SDL_LoadBMP("./../Image/pac2.bmp");
+	Direction direct;
+	direct = pacman->status;
+	switch(direct){
+		case Direction::up:
+			img = SDL_LoadBMP("./../Image/pac_up.bmp");
+			break;
+		case Direction::down:
+			img = SDL_LoadBMP("./../Image/pac_down.bmp");
+			break;
+		case Direction::left:
+			img = SDL_LoadBMP("./../Image/pac_left.bmp");
+			break;
+		case Direction::right:
+			img = SDL_LoadBMP("./../Image/pac_right.bmp");
+			break;
+	}
+	
 	texture = SDL_CreateTextureFromSurface(sdl_renderer, img);
 
 	dstrect = {pac_y*10+10,pac_x*10+10,30,30};

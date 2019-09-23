@@ -26,7 +26,9 @@ void Controller::HandleInput(bool &running, std::shared_ptr<Pacman> &pacman, std
           break;
       }
 
+      pacman->status = direct;
 			pacman->move(map, direct);
+      
 
       map->Locate_character(0, pacman->Get_pose());
     }

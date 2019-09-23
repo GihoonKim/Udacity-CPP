@@ -9,7 +9,6 @@
 
 class Pacman : public Character{
 	public:
-		enum class Direction {kUpm, kDown, kLeft, kRight};
 
 		Pacman();
 	// Tetris(int grid_width, int grid_height)
@@ -18,6 +17,8 @@ class Pacman : public Character{
 		void Update();
 
 		float speed{0.1f};
+
+		Direction status {Direction::right};
 
 	private:
 		// std::vector<Line> line_storage; 

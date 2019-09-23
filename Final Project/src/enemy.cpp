@@ -14,7 +14,7 @@ void Enemy::Control(){
 
 	Direction direct;
 
-	constexpr std::size_t kFramesPerSecond{60};
+	constexpr std::size_t kFramesPerSecond{10};
     constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
 
 	Uint32 title_timestamp = SDL_GetTicks();
@@ -131,7 +131,7 @@ void Enemy::Heuristic_move(std::tuple<int,int> pos, std::shared_ptr<Map> &map){
 		Enemy::move(map,get_rand());
 	}
 
-	std::cout<<"pac_pos : (" <<target_x<<","<<target_y<<"), enemy_pos : ("<<temp_x<<","<<temp_y<<")"<<" "<<direct<<std::endl;
+	// std::cout<<"pac_pos : (" <<target_x<<","<<target_y<<"), enemy_pos : ("<<temp_x<<","<<temp_y<<")"<<" "<<direct<<std::endl;
 	// for (size_t i=0; i<4 ; i++){
 	// 	Enemy::move(map,prior_direct[i]);
 
