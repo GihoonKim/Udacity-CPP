@@ -25,7 +25,7 @@ void Map::initialize()
 	 {0,0,0,0,0,1,0,0,1,0,0,0,0,0},
 	 {1,1,1,1,0,1,0,0,1,0,1,1,1,1},
 	 {1,0,0,0,0,1,1,1,1,0,0,0,0,1},
-	 {1,0,1,0,0,0,0,0,0,0,0,1,0,1},
+	 {1,0,1,1,0,0,0,0,0,0,1,1,0,1},
 	 {1,0,1,1,1,0,1,1,0,1,1,1,0,1},
 	 {1,0,1,0,0,0,1,0,0,0,0,1,0,1},
 	 {1,0,0,0,1,1,1,0,1,1,0,0,0,1},
@@ -72,8 +72,14 @@ void Map::Add_laser(){
     
     if (timeSinceLastUpdate >= cycle_duration){
 
-      std::lock_guard<std::mutex> Lock(_mutex);
+			
+		while(true){
+			
+			if(Map::check_pos()) break;
+		}
 
+      std::lock_guard<std::mutex> Lock(_mutex);
+			
       if (grid[5][6]==GridPhase::laser){
         	
 				grid[5][6]=GridPhase::empty;
@@ -89,4 +95,17 @@ void Map::Add_laser(){
     }
   }
 
+}
+
+bool Map::check_pos(){
+
+
+	for (int i=0; i<5; i++){
+
+		if (pos[i][0]>20 && pos[i][0]<30 && pos[i][1]>25 && pos[i][1]<40){
+			return false;
+		}
+	}
+
+	return true;
 }

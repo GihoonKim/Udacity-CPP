@@ -1,8 +1,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <tuple>
 #include "map.h"
-#include<tuple>
+
 
 enum Direction{
 	up,
@@ -29,8 +30,6 @@ class Character{
 
 	private:
 		bool Valid_direction_check(std::shared_ptr<Map> &map, int &pos_x, int &pos_y, Direction direct);
-
-
 
 };
 

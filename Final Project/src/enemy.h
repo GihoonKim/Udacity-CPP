@@ -4,14 +4,17 @@
 #include "SDL2/SDL.h"
 #include "character.h"
 
-class Enemy : public Character{
+class Enemy : public Character {
   public:
+  
+    Enemy(std::shared_ptr<Map> &map, int index);
 
-		// Enemy(int init_x, int init_y);
-		Enemy();
-		// Direction Heuristic_search();
+		void Control();
 
+	private:
 
+		std::shared_ptr<Map> map_;
+		int index_;
 };
 
 #endif

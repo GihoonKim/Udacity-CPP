@@ -1,4 +1,5 @@
 #include "controller.h"
+#include<iostream>
 
 void Controller::HandleInput(bool &running, std::shared_ptr<Pacman> &pacman, std::shared_ptr<Map> &map) const{
 	SDL_Event e;
@@ -26,6 +27,8 @@ void Controller::HandleInput(bool &running, std::shared_ptr<Pacman> &pacman, std
       }
 
 			pacman->move(map, direct);
+
+      map->Locate_character(0, pacman->Get_pose());
     }
   }  
 };

@@ -1,6 +1,7 @@
 #include "character.h"
-#include<iostream>
+#include <iostream>
 #include "math.h"
+
 
 std::tuple<int,int> Character::CurrentMap_pose(){
 
@@ -36,7 +37,7 @@ void Character::move(std::shared_ptr<Map> &map, Direction direct){
         Character::pos_x = (temp_x+70) % 70;
         Character::pos_y = (temp_y+70) % 70;
 
-        std::cout<<"pos x is : "<<Character::pos_x <<" pos y is : "<<Character::pos_y<<std::endl;
+        // std::cout<<"pos x is : "<<Character::pos_x <<" pos y is : "<<Character::pos_y<<std::endl;
     }
 }
 
@@ -55,7 +56,7 @@ bool Character::Valid_direction_check(std::shared_ptr<Map> &map, int &x, int &y,
 
     for (int i=0; i<check_x;i++){
         for (int j=0; j<check_y; j++){
-            if (grid[grid_x+i][grid_y+j]==occupied) return false;
+            if ((grid[grid_x+i][grid_y+j]==occupied)|(grid[grid_x+i][grid_y+j]==laser)) return false;
         }
     }
 

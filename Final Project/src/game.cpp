@@ -12,14 +12,17 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
 
 void Game::Init(int x, int y){
 
+	//Generate map
+	map = std::make_shared<Map>();
+
 	//define number of enemy and their initial position
 	Uint16 num_enemy=4;
 	int Enemy_pos[2][4] {{30,30,35,35},{30,35,30,35}};
 	int Ego_pos[2] {40,5};
 
 	//Generate enemy
-	for(std::size_t n=0; n<num_enemy;n++){
-		enemy_group.push_back(std::make_shared<Enemy>());
+	for(int n=0; n<num_enemy;n++){
+		enemy_group.push_back(std::make_shared<Enemy>(map, n));
 		enemy_group.at(n)->Set_pose(Enemy_pos[0][n], Enemy_pos[1][n]);
 	}
 
@@ -27,8 +30,7 @@ void Game::Init(int x, int y){
 	pacman = std::make_shared<Pacman>();
 	pacman->Set_pose(Ego_pos[0],Ego_pos[1]);
 	
-	//Generate map
-	map = std::make_shared<Map>();
+
 	
 }
 

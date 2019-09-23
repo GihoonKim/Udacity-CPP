@@ -4,6 +4,7 @@
 #include<vector>
 #include<mutex>
 #include<thread>
+#include<tuple>
 
 #define GridSize 14
 
@@ -24,6 +25,9 @@ class Map{
 		Map();
 		void initialize();
 		void Add_laser();
+		
+		void Locate_character(int index, std::tuple<int, int> pos_){ pos[index][0] = std::get<0>(pos_); pos[index][1]=std::get<1>(pos_);}
+		bool check_pos();
 
 	private:
 		std::vector<std::vector<GridPhase>> grid;
@@ -31,7 +35,7 @@ class Map{
 		// int Grid_size = 14;
 
 		std::vector<std::thread> threads;
-		
+		int pos[5][2] = {{0,0},{0,0},{0,0},{0,0},{0,0}};
 		
 };
 
