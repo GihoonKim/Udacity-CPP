@@ -11,10 +11,16 @@ class Enemy : public Character {
 
 		void Control();
 
+		void Heuristic_move(std::tuple<int,int> pos, std::shared_ptr<Map> &map);
+		Direction get_rand();
+		
+
 	private:
+		
 
 		std::shared_ptr<Map> map_;
 		int index_;
+		std::tuple<int,int> pacman_pos;
 };
 
 #endif

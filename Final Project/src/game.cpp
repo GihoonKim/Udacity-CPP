@@ -22,7 +22,7 @@ void Game::Init(int x, int y){
 
 	//Generate enemy
 	for(int n=0; n<num_enemy;n++){
-		enemy_group.push_back(std::make_shared<Enemy>(map, n));
+		enemy_group.push_back(std::make_shared<Enemy>(map, n+1));
 		enemy_group.at(n)->Set_pose(Enemy_pos[0][n], Enemy_pos[1][n]);
 	}
 

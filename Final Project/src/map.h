@@ -29,6 +29,8 @@ class Map{
 		void Locate_character(int index, std::tuple<int, int> pos_){ pos[index][0] = std::get<0>(pos_); pos[index][1]=std::get<1>(pos_);}
 		bool check_pos();
 
+		std::tuple<int, int> Get_pacman_pos(){return std::make_tuple(pos[0][0],pos[0][1]); }
+
 	private:
 		std::vector<std::vector<GridPhase>> grid;
 		std::mutex _mutex;
