@@ -40,6 +40,7 @@ void Map::initialize()
 	}
 
 	threads.emplace_back(&Map::Add_laser,this);
+	threads.emplace_back(&Map::Add_reverser,this);
 
 	std::cout<<"map initialize end"<<std::endl;
 	// for(int x=6; x<8 ; x++){
@@ -56,7 +57,7 @@ void Map::Add_laser(){
 	grid[5][7]=GridPhase::laser;
 	grid[5][6]=GridPhase::laser;
 
-	std::hash<std::thread::id> hasher;
+  std::hash<std::thread::id> hasher;
   srand((unsigned int)hasher(std::this_thread::get_id()));
   // srand(time(NULL));
   double cycle_duration = (rand()%2000 + 5000);
@@ -97,6 +98,30 @@ void Map::Add_laser(){
 
 }
 
+void Map::Add_reverser(){
+
+	std::hash<std::thread::id> hasher;
+	srand((unsigned int)hasher(std::this_thread::get_id()));
+	// srand(time(NULL));
+	int waiting_time = (rand()%5000 + 10000);
+	
+	std::this_thread::sleep_for(std::chrono::milliseconds(waiting_time));
+
+	int temp_x_pac = 40;
+	int temp_y_pac = 5;
+
+	_mutex.lock();
+	Map::grid[8][1] = GridPhase::reverser;
+	_mutex.unlock();
+
+	// threads.emplace_back(&Map::
+	//Use condition variable
+
+}
+
+
+	
+
 bool Map::check_pos(){
 
 
@@ -108,4 +133,15 @@ bool Map::check_pos(){
 	}
 
 	return true;
+}
+
+void Map::Change_map(GridPhase status){
+	
+	int pac_x_map = (Map::pos[0][0]+2.5)/5;
+	int pac_y_map = (Map::pos[0][1]+2.5)/5;
+	
+	if (Map::grid[pac_x_map][pac_y_map]==GridPhase::food | Map::grid[pac_x_map][pac_y_map]==GridPhase::reverser){
+		std::lock_guard<std::mutex> Lock(_mutex);
+		Map::grid[pac_x_map][pac_y_map] = status;
+	}
 }

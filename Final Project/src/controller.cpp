@@ -31,6 +31,8 @@ void Controller::HandleInput(bool &running, std::shared_ptr<Pacman> &pacman, std
       
 
       map->Locate_character(0, pacman->Get_pose());
+      map->Change_map(GridPhase::empty);
+  
     }
   }  
 };

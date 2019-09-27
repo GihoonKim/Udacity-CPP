@@ -93,13 +93,22 @@ void Renderer::Render(std::vector<std::vector<GridPhase>> const &current_map, st
 				block.x = j*MapSize;
 				SDL_RenderFillRect(sdl_renderer, &block);
 			}
-			else{
+			else if(current_map[i][j]==GridPhase::food){
 
 				SDL_SetRenderDrawColor(sdl_renderer,235,229,52,100);
 				block.w = 10;
 				block.h = 10;
 				block.y = i*MapSize+20;
 				block.x = j*MapSize+20;
+				SDL_RenderFillRect(sdl_renderer, &block);
+			}
+			else if(current_map[i][j]==GridPhase::reverser){
+
+				SDL_SetRenderDrawColor(sdl_renderer,255,143,242,50);
+				block.w = 20;
+				block.h = 20;
+				block.y = i*MapSize+15;
+				block.x = j*MapSize+15;
 				SDL_RenderFillRect(sdl_renderer, &block);
 			}
 		}

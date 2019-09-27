@@ -14,7 +14,7 @@ int main() {
 
     Game game(10,10);
 
-    std::cout<<"test"<<std::endl;
+    // std::cout<<"test"<<std::endl;
     game.Run(controller, renderer, kMsPerFrame);
 
     return 0;

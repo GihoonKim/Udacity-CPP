@@ -74,7 +74,14 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 }
 
 void Game::Update(){
-	
+
+	map->Locate_character(0, pacman->Get_pose());
+    map->Change_map(GridPhase::empty);
+
+	for (int i=0; i<4; i++){
+		map->Locate_character(i+1,enemy_group.at(i)->Get_pose());
+	}
+
 }
 
 
