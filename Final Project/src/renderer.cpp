@@ -55,7 +55,7 @@ Renderer::~Renderer() {
 	SDL_Quit();
 }
 
-void Renderer::Render(std::vector<std::vector<GridPhase>> const &current_map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group) {
+void Renderer::Render(std::shared_ptr<Map> &map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group) {
 
 	
 	// SLD_Rect block;
@@ -69,7 +69,7 @@ void Renderer::Render(std::vector<std::vector<GridPhase>> const &current_map, st
 	SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
 	SDL_RenderClear(sdl_renderer);
 
-	
+	current_map = map->Get_current_map();
 
 	SDL_Rect block;
 	
@@ -154,19 +154,25 @@ void Renderer::Render(std::vector<std::vector<GridPhase>> const &current_map, st
 	for (int num=0 ; num<4 ; num++){
 		
 		std::tie(enemy_x, enemy_y) = enemy_group.at(num)->Get_pose();
-		switch(num){
-			case 0:
-				img = SDL_LoadBMP("./../Image/enem1.bmp");
-				break;
-			case 1:
-				img = SDL_LoadBMP("./../Image/enem2.bmp");
-				break;
-			case 2:
-				img = SDL_LoadBMP("./../Image/enem3.bmp");
-				break;
-			case 3:
-				img = SDL_LoadBMP("./../Image/enem5.bmp");
-				break;
+		if(map->attack_flag)
+		{
+			img = SDL_LoadBMP("./../Image/enem_run.bmp");
+		}
+		else{
+			switch(num){
+				case 0:
+					img = SDL_LoadBMP("./../Image/enem1.bmp");
+					break;
+				case 1:
+					img = SDL_LoadBMP("./../Image/enem2.bmp");
+					break;
+				case 2:
+					img = SDL_LoadBMP("./../Image/enem3.bmp");
+					break;
+				case 3:
+					img = SDL_LoadBMP("./../Image/enem5.bmp");
+					break;
+			}
 		}
 
 		texture = SDL_CreateTextureFromSurface(sdl_renderer, img);

@@ -60,7 +60,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
 		controller.HandleInput(running, pacman, map);
 		Update();
-		renderer.Render(map->Get_current_map(), pacman, enemy_group);
+		renderer.Render(map, pacman, enemy_group);
 
 		frame_end = SDL_GetTicks();
 		
@@ -79,8 +79,12 @@ void Game::Update(){
     map->Change_map(GridPhase::empty);
 
 	for (int i=0; i<4; i++){
-		map->Locate_character(i+1,enemy_group.at(i)->Get_pose());
+		if(enemy_group.at(i)->alive){
+			map->Locate_character(i+1,enemy_group.at(i)->Get_pose());
+		}
 	}
+
+	//겹치는거 확인하는 코드가 필요하다. 결과는 map flag에 따라서 game over or enemy die
 
 }
 

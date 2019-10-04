@@ -3,6 +3,7 @@
 #include<mutex>
 
 #include "map.h"
+#include <future>
 
 
 Map::Map()
@@ -31,6 +32,8 @@ void Map::initialize()
 	 {1,0,0,0,1,1,1,0,1,1,0,0,0,1},
 	 {1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
+
+	num_food = 88;
 
 	for(int x=0 ; x<GridSize ; x++){
 		for(int y=0 ; y<GridSize ; y++){
@@ -110,17 +113,50 @@ void Map::Add_reverser(){
 	int temp_x_pac = 40;
 	int temp_y_pac = 5;
 
+	//Generating reverser
 	_mutex.lock();
+	if (Map::grid[8][1]==GridPhase::food){num_food -=1;}
 	Map::grid[8][1] = GridPhase::reverser;
+	num_reverser +=1;
 	_mutex.unlock();
 
-	// threads.emplace_back(&Map::
-	//Use condition variable
+
+	//start check whether pacmant eat reverser or not
+	
+	std::promise<void> prmsEatReverser;
+	std::future<void> ftrEatReverser = prmsEatReverser.get_future();
+	_waitingEat.SetPromise(std::move(prmsEatReverser));
+	
+	threads.emplace_back(&Map::CheckReverser,this);
+	
+	ftrEatReverser.wait();
+
+	_mutex.lock();
+	Map::attack_flag = true;
+	std::cout<<"I ate reverser"<<std::endl;
+	_mutex.unlock();
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(waiting_time));
+	_mutex.lock();
+	Map::attack_flag = false;
+	_mutex.unlock();
+	
 
 }
 
 
-	
+void Map::CheckReverser(){
+	while(true)	
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+		if(num_reverser<1){
+			_waitingEat.SetReverser();
+			break;
+		}
+	}
+
+}
 
 bool Map::check_pos(){
 
@@ -140,8 +176,26 @@ void Map::Change_map(GridPhase status){
 	int pac_x_map = (Map::pos[0][0]+2.5)/5;
 	int pac_y_map = (Map::pos[0][1]+2.5)/5;
 	
-	if (Map::grid[pac_x_map][pac_y_map]==GridPhase::food | Map::grid[pac_x_map][pac_y_map]==GridPhase::reverser){
+	if (Map::grid[pac_x_map][pac_y_map]==GridPhase::food){
 		std::lock_guard<std::mutex> Lock(_mutex);
+		Map::num_food -=1;
+		// std::cout<<"num food : " <<Map::num_food<<std::endl;
 		Map::grid[pac_x_map][pac_y_map] = status;
 	}
+
+	if (Map::grid[pac_x_map][pac_y_map]==GridPhase::reverser){
+		std::lock_guard<std::mutex> Lock(_mutex);
+		Map::grid[pac_x_map][pac_y_map] = status;
+		Map::num_reverser -=1;
+
+		//message que_send
+	}
+}
+
+void WaitingEat::SetReverser(){
+
+	std::lock_guard<std::mutex> lock(_mutex);
+	
+	prmsEatReverser.set_value();
+
 }

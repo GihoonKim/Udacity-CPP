@@ -63,20 +63,42 @@ void Enemy::Heuristic_move(std::tuple<int,int> pos, std::shared_ptr<Map> &map){
 	auto diff_x = target_x - temp_x;
 	auto diff_y = target_y - temp_y;
 
+	bool flag = map_->attack_flag;
+
 	if(abs(diff_x)>abs(diff_y)){
 		if(diff_x>0){
-			direct = down;
+			if (flag){
+				direct = up;
+			}
+			else{
+				direct = down;
+			}
 		}
 		else{
-			direct = up;
+			if (flag){
+				direct = down;
+			}
+			else{
+				direct = up;
+			}
 		}
 	}
 	else{
 		if(diff_y>0){
-			direct = right;
+			if (flag){
+				direct = left;
+			}
+			else{
+				direct = right;
+			}
 		}
 		else{
-			direct = left;
+			if(flag){
+				direct = right;
+			}
+			else{
+				direct = left;
+			}
 		}
 	}
 	

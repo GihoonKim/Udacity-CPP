@@ -16,7 +16,7 @@ class Renderer {
 		
 		~Renderer();
 		// void Render(Tetris const tetris);
-		void Render(std::vector<std::vector<GridPhase>> const &current_map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group);
+		void Render(std::shared_ptr<Map> &map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group);
 		void UpdateWindowTitle(int score, int fps);
 
 	private:

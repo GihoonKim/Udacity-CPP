@@ -15,7 +15,7 @@ enum Direction{
 class Character{
   public:
 
-		bool attack_flag = false;
+		bool alive = true;
 
 		
 		std::tuple<int,int> CurrentMap_pose(); //pos_x/5 posy/5
