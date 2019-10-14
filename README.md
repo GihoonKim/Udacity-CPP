@@ -23,3 +23,8 @@
 ### Concurrent Traffic Simulation
  - Build a multithreaded traffic simulator using a real urban map.
  - Rub each vehicle, intersection on a separate thread
+
+### Final Project(pacman)
+ - Just have one round game pacman
+ - If you destruct all enemies or eat all food, you win. 
+ - If you are caught by enemy, you lose.
