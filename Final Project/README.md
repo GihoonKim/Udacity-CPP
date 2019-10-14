@@ -39,3 +39,7 @@
 ## Launch
 
 - cd `build` → `cmake ..` → `make` → `./Pacman`
+
+## Image Reference
+ - https://www.deviantart.com/chillyboombox2/art/You-Win-Screen-748805655
+ - https://www.seekpng.com/idown/u2w7r5o0o0q8w7a9_game-over-sticker-game-over-button-png/
