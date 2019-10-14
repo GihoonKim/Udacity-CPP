@@ -12,6 +12,13 @@ Map::Map()
 		Map::initialize();
 	}
 
+Map::~Map()
+{	
+	for (size_t i=0; i<threads.size() ; i++){ threads[i].detach(); }
+
+    // std::cout<<"map done"<<std::endl;
+}
+
 
 void Map::initialize()
 {
@@ -25,7 +32,7 @@ void Map::initialize()
 	 {1,0,1,1,0,1,0,0,1,0,1,1,0,1},
 	 {0,0,0,0,0,1,0,0,1,0,0,0,0,0},
 	 {1,1,1,1,0,1,0,0,1,0,1,1,1,1},
-	 {1,0,0,0,0,1,1,1,1,0,0,0,0,1},
+	 {1,0,0,0,0,1,0,0,1,0,0,0,0,1},
 	 {1,0,1,1,0,0,0,0,0,0,1,1,0,1},
 	 {1,0,1,1,1,0,1,1,0,1,1,1,0,1},
 	 {1,0,1,0,0,0,1,0,0,0,0,1,0,1},
@@ -45,7 +52,7 @@ void Map::initialize()
 	threads.emplace_back(&Map::Add_laser,this);
 	threads.emplace_back(&Map::Add_reverser,this);
 
-	std::cout<<"map initialize end"<<std::endl;
+	// std::cout<<"map initialize end"<<std::endl;
 	// for(int x=6; x<8 ; x++){
 	// 	for(int y=6; y<8 ; y++){
 	// 		grid[x][y] = GridPhase::empty;
@@ -59,6 +66,9 @@ void Map::Add_laser(){
 
 	grid[5][7]=GridPhase::laser;
 	grid[5][6]=GridPhase::laser;
+	grid[8][7]=GridPhase::laser;
+	grid[8][6]=GridPhase::laser;
+
 
   std::hash<std::thread::id> hasher;
   srand((unsigned int)hasher(std::this_thread::get_id()));
@@ -88,10 +98,14 @@ void Map::Add_laser(){
         	
 				grid[5][6]=GridPhase::empty;
 				grid[5][7]=GridPhase::empty;
+				grid[8][7]=GridPhase::empty;
+				grid[8][6]=GridPhase::empty;
       }
       else{
         grid[5][6]=GridPhase::laser;
-				grid[5][7]=GridPhase::laser;
+		grid[5][7]=GridPhase::laser;
+		grid[8][7]=GridPhase::laser;
+		grid[8][6]=GridPhase::laser;
       }
       // _light_messages.send(std::move(_currentPhase));
       
@@ -117,7 +131,7 @@ void Map::Add_reverser(){
 	_mutex.lock();
 	if (Map::grid[8][1]==GridPhase::food){num_food -=1;}
 	Map::grid[8][1] = GridPhase::reverser;
-	num_reverser +=1;
+	// num_reverser +=1;
 	_mutex.unlock();
 
 
@@ -133,7 +147,7 @@ void Map::Add_reverser(){
 
 	_mutex.lock();
 	Map::attack_flag = true;
-	std::cout<<"I ate reverser"<<std::endl;
+	// std::cout<<"I ate reverser"<<std::endl;
 	_mutex.unlock();
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(waiting_time));
@@ -150,10 +164,14 @@ void Map::CheckReverser(){
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-		if(num_reverser<1){
+		if(num_reverser==1){
 			_waitingEat.SetReverser();
 			break;
 		}
+
+
+
+
 	}
 
 }
@@ -186,7 +204,7 @@ void Map::Change_map(GridPhase status){
 	if (Map::grid[pac_x_map][pac_y_map]==GridPhase::reverser){
 		std::lock_guard<std::mutex> Lock(_mutex);
 		Map::grid[pac_x_map][pac_y_map] = status;
-		Map::num_reverser -=1;
+		Map::num_reverser =1;
 
 		//message que_send
 	}
@@ -198,4 +216,10 @@ void WaitingEat::SetReverser(){
 	
 	prmsEatReverser.set_value();
 
+}
+
+bool Map::comp_pos(int index){
+	
+	return ((pos[0][0]+2.5)/5==(pos[index][0]+2.5)/5)&&((pos[0][1]+2.5)/5==(pos[index][1]+2.5)/5); 
+	
 }

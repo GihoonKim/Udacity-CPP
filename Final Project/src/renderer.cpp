@@ -53,6 +53,7 @@ Renderer::Renderer(const std::size_t screen_width,
 Renderer::~Renderer() {
 	SDL_DestroyWindow(sdl_window);
 	SDL_Quit();
+	// std::cout<<"render_test"<<std::endl;
 }
 
 void Renderer::Render(std::shared_ptr<Map> &map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group) {
@@ -153,47 +154,70 @@ void Renderer::Render(std::shared_ptr<Map> &map, std::shared_ptr<Pacman> &pacman
 	int enemy_x, enemy_y;
 	for (int num=0 ; num<4 ; num++){
 		
-		std::tie(enemy_x, enemy_y) = enemy_group.at(num)->Get_pose();
-		if(map->attack_flag)
-		{
-			img = SDL_LoadBMP("./../Image/enem_run.bmp");
-		}
-		else{
-			switch(num){
-				case 0:
-					img = SDL_LoadBMP("./../Image/enem1.bmp");
-					break;
-				case 1:
-					img = SDL_LoadBMP("./../Image/enem2.bmp");
-					break;
-				case 2:
-					img = SDL_LoadBMP("./../Image/enem3.bmp");
-					break;
-				case 3:
-					img = SDL_LoadBMP("./../Image/enem5.bmp");
-					break;
+		if(enemy_group.at(num)->alive){
+			std::tie(enemy_x, enemy_y) = enemy_group.at(num)->Get_pose();
+			if(map->attack_flag)
+			{
+				img = SDL_LoadBMP("./../Image/enem_run.bmp");
 			}
+			else{
+				switch(num){
+					case 0:
+						img = SDL_LoadBMP("./../Image/enem1.bmp");
+						break;
+					case 1:
+						img = SDL_LoadBMP("./../Image/enem2.bmp");
+						break;
+					case 2:
+						img = SDL_LoadBMP("./../Image/enem3.bmp");
+						break;
+					case 3:
+						img = SDL_LoadBMP("./../Image/enem5.bmp");
+						break;
+				}
+			}
+
+			texture = SDL_CreateTextureFromSurface(sdl_renderer, img);
+
+			dstrect = {enemy_y*10+10,enemy_x*10+10,30,30};
+			SDL_RenderCopy(sdl_renderer, texture, NULL, &dstrect);
+			
 		}
 
-		texture = SDL_CreateTextureFromSurface(sdl_renderer, img);
-
-		dstrect = {enemy_y*10+10,enemy_x*10+10,30,30};
-		SDL_RenderCopy(sdl_renderer, texture, NULL, &dstrect);
-
-		// SDL_SetRenderDrawColor(sdl_renderer, 1*num, 50*(num+1), 1*num, 100);
-		// enemy_img.w = 30;
-		// enemy_img.h = 30;
-		// enemy_img.y = enemy_x*10+10;
-		// enemy_img.x = enemy_y*10+10;
-		// SDL_RenderFillRect(sdl_renderer, &enemy_img);
-		
+		SDL_RenderPresent(sdl_renderer);
 	}
-
-	SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
-	// std::string title{"Game Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
-	// SDL_SetWindowTitle(sdl_window, title.c_str());
+void Renderer::Render_end(int status){
+
+	SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0x00);
+	SDL_RenderClear(sdl_renderer);
+
+	// std::cout<<"status is : " <<status<<std::endl;
+	if (status==0){
+		// std::cout<<"here1"<<std::endl;
+		img = SDL_LoadBMP("./../Image/you_lose.bmp");
+	}
+	else{
+		// std::cout<<"here2"<<std::endl;
+		img = SDL_LoadBMP("./../Image/you_win.bmp");
+	}
+
+	texture = SDL_CreateTextureFromSurface(sdl_renderer, img);
+
+	SDL_Rect dstrect;
+
+	dstrect = {100,250,500,200};
+
+	SDL_RenderCopy(sdl_renderer, texture, NULL, &dstrect);
+
+	SDL_RenderPresent(sdl_renderer);
+	// std::cout<<"render1"<<std::endl;
+
+}
+
+void Renderer::UpdateWindowTitle(int score) {
+	std::string title{"Game Score: " + std::to_string(score)};
+	SDL_SetWindowTitle(sdl_window, title.c_str());
 }
 

@@ -11,6 +11,13 @@ std::tuple<int,int> Character::CurrentMap_pose(){
     return std::make_tuple(x,y);
 }
 
+Character::~Character(){
+
+    for (size_t i=0; i<threads.size() ; i++){ threads[i].detach(); }
+
+    // std::cout<<"character destruct"<<std::endl;
+}
+
 void Character::move(std::shared_ptr<Map> &map, Direction direct){
 
     int temp_x = Character::pos_x;
@@ -51,9 +58,21 @@ bool Character::Valid_direction_check(std::shared_ptr<Map> &map, int &x, int &y,
     int grid_x = x/5;
     int grid_y = y/5;
 
-    if (x%5 !=0) check_x += 1;
-    if (y%5 !=0) check_y += 1;
+    
+    if(this->name == "pacman"){
+        if ((x%5 !=0)&&(x%5 !=1)&&(x%5 !=4)) check_x += 1;
+        if ((y%5 !=0)&&(y%5 !=1)&&(y%5 !=4)) check_y += 1;
 
+        if ((x%5 ==4)) {grid_x +=1;}
+        if ((y%5 ==4)) {grid_y +=1;}
+    }
+    else
+    {
+        
+        if ((x%5 !=0)) check_x += 1;
+        if ((y%5 !=0)) check_y += 1;
+    }
+    
     for (int i=0; i<check_x;i++){
         for (int j=0; j<check_y; j++){
             if ((grid[grid_x+i][grid_y+j]==occupied)|(grid[grid_x+i][grid_y+j]==laser)) return false;

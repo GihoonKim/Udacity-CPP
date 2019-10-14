@@ -4,7 +4,7 @@
 
 Enemy::Enemy(std::shared_ptr<Map> &map, int index) : map_(map), index_(index){
 	std::cout<<"create Enemy"<<std::endl;
-
+	this->name = "enemy";
 	threads.emplace_back(&Enemy::Control,this);
 	//using thread perform own task.
 

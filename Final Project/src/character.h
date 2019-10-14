@@ -15,8 +15,10 @@ enum Direction{
 class Character{
   public:
 
+		~Character();
+		
 		bool alive = true;
-
+		std::string name;
 		
 		std::tuple<int,int> CurrentMap_pose(); //pos_x/5 posy/5
 		std::tuple<int,int> Get_pose(){return std::make_tuple(pos_x, pos_y);};
@@ -29,6 +31,7 @@ class Character{
 		std::vector<std::thread> threads;
 
 	private:
+
 		bool Valid_direction_check(std::shared_ptr<Map> &map, int &pos_x, int &pos_y, Direction direct);
 
 };

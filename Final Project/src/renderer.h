@@ -17,7 +17,8 @@ class Renderer {
 		~Renderer();
 		// void Render(Tetris const tetris);
 		void Render(std::shared_ptr<Map> &map, std::shared_ptr<Pacman> &pacman, std::vector<std::shared_ptr<Enemy>> &enemy_group);
-		void UpdateWindowTitle(int score, int fps);
+		void Render_end(int status);
+		void UpdateWindowTitle(int score);
 
 	private:
 		SDL_Window *sdl_window;

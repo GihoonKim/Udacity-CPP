@@ -15,7 +15,17 @@ int main() {
     Game game(10,10);
 
     // std::cout<<"test"<<std::endl;
+    std::thread t(&Game::Check_game,&game);
+
     game.Run(controller, renderer, kMsPerFrame);
+
+    game.end_game(controller,renderer,kMsPerFrame);
+
+    // if game.end status = 0 -> plot loss, else -> plot win
+    // check any key input
+    // game restart or end
+
+    t.join();
 
     return 0;
 }
